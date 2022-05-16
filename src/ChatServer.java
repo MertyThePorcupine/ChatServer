@@ -9,6 +9,9 @@ public class ChatServer {
     ChatServer() throws IOException {
         server = new ServerSocket(1234);
     }
+    void sendAll(String message){
+
+    }
     public void run(){
         while (true){
             System.out.println("Waiting...");

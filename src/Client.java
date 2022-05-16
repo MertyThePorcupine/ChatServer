@@ -13,6 +13,10 @@ public class Client implements Runnable{
         new Thread(this).start();
     }
 
+    void receive(String message){
+
+    }
+
     @Override
     public void run() {
         try {
