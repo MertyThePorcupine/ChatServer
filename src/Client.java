@@ -7,14 +7,20 @@ import java.util.Scanner;
 
 public class Client implements Runnable{
     Socket socket;
+    ChatServer chatServer;
+
     String nickname;
-    public Client(Socket socket) {
+
+    Scanner in;
+    PrintStream out;
+    public Client(Socket socket, ChatServer chatServer) {
+        this.chatServer = chatServer;
         this.socket = socket;
         new Thread(this).start();
     }
 
     void receive(String message){
-
+        out.println(message);
     }
 
     @Override
@@ -23,13 +29,18 @@ public class Client implements Runnable{
             InputStream is = socket.getInputStream();
             OutputStream os = socket.getOutputStream();
 
-            Scanner in = new Scanner(is);
-            PrintStream out = new PrintStream(os);
+            in = new Scanner(is);
+            out = new PrintStream(os);
 
             out.println("Welcome to chat!");
+            out.println("Type your nickname");
+
+            nickname = in.nextLine();
+
+            out.println("Now you can chat, " + nickname);
+
             String input = in.nextLine();
-            while (!input.equals("bye")) {
-                out.println(input);
+            while (!input.equals("bye")) {                chatServer.sendAll(input, nickname);
                 input = in.nextLine();
             }
             socket.close();

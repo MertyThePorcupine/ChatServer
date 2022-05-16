@@ -9,8 +9,11 @@ public class ChatServer {
     ChatServer() throws IOException {
         server = new ServerSocket(1234);
     }
-    void sendAll(String message){
-
+    void sendAll(String message, String nickname){
+        for (Client client : clients){
+            client.out.print(nickname + " says: ");
+            client.receive(message);
+        }
     }
     public void run(){
         while (true){
@@ -18,7 +21,7 @@ public class ChatServer {
             try{
                 Socket socket = server.accept();
                 System.out.println();
-                Client client = new Client(socket);
+                Client client = new Client(socket, this);
                 clients.add(client);
             }
             catch (IOException e){
