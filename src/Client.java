@@ -40,7 +40,8 @@ public class Client implements Runnable{
             out.println("Now you can chat, " + nickname);
 
             String input = in.nextLine();
-            while (!input.equals("bye")) {                chatServer.sendAll(input, nickname);
+            while (!input.equals("bye")) {
+                chatServer.sendAll(input, nickname);
                 input = in.nextLine();
             }
             socket.close();
