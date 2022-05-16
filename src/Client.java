@@ -44,7 +44,9 @@ public class Client implements Runnable{
                 chatServer.sendAll(input, nickname);
                 input = in.nextLine();
             }
+            input = in.nextLine();
             socket.close();
+            return;
         }
         catch (IOException e){
             e.printStackTrace();
